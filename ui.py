@@ -101,11 +101,11 @@ def set_template(url):
 def get_topic(topic):
     try:
         response = requests.post(n8n_URL, json={"topic": topic})
-        if response.status_code == 200:
-            return response.text
-        else:
-            return "[]"
-    except:
+        st.write("Status code:", response.status_code)
+        st.write("Response text:", response.text)
+        return response.text if response.status_code == 200 else "[]"
+    except Exception as e:
+        st.error(f"Request failed: {e}")
         return "[]"
 
 # Show topic results
@@ -159,5 +159,6 @@ if st.button("Search"):
 if st.session_state.search_visible and st.session_state.search_response:
     st.markdown(f"## Results for: _{st.session_state.search_topic}_")
     get_results(st.session_state.search_response)
+
 
 
