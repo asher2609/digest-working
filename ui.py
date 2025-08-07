@@ -44,7 +44,7 @@ def set_template(url):
                     background-image: url("data:image/png;base64,{bg_base64}");
                     background-size: cover;
                     background-repeat: no-repeat;
-                    background-attachment: fixed;
+                    background-attachment: scroll; /* scroll with content */
                     background-position: center;
                     color: white !important;
                     font-family: 'Segoe UI', sans-serif;
@@ -55,10 +55,16 @@ def set_template(url):
                 }}
 
                 .main > div {{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center; /* center horizontally */
+                    justify-content: flex-start;
                     background-color: rgba(0, 0, 0, 0.6);
                     padding: 2rem;
                     border-radius: 10px;
                     box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+                    max-width: 900px; /* optional: limit width */
+                    margin: auto; /* center container horizontally */
                 }}
 
                 .stButton > button {{
@@ -159,6 +165,7 @@ if st.button("Search"):
 if st.session_state.search_visible and st.session_state.search_response:
     st.markdown(f"## Results for: _{st.session_state.search_topic}_")
     get_results(st.session_state.search_response)
+
 
 
 
